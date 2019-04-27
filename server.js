@@ -12,9 +12,9 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname + 'build/index.html'));
 });
 
-app.get('/api/datas', function (req, res, next) {
-	let data = generateDatas();
-	res.json(data);
+app.get('/api/datas', function(req, res, next) {
+    let data = generateDatas();
+    res.send(JSON.stringify(data));
 });
 
 app.listen(port, () => {
@@ -30,7 +30,7 @@ function randomInterval(min, max) {
 
 function generateDatas() {
 	if (oldData != null) {
-		if (new Date().getTime() - time >= 5000) {
+		if (new Date().getTime() - time.getTime() < 5000) {
 			return oldData;
 		}
 	}
@@ -79,6 +79,10 @@ function generateDatas() {
 		"temperature": currentTemp,
 		"alert": alerts
 	}
+
+	oldData = datas;
+	time = new Date();
+
 	return datas;
 }
 
