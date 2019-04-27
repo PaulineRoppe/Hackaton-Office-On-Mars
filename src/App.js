@@ -15,10 +15,12 @@ const App = (props) => {
   const [danger, setDanger] = useState(false);
   const [params, setParams] = useState();
   const [tabData, setData] = useState([{ 'time': '16H00', 'wind': '750 hpa', 'temp': '25°', 'rad': '32 msv' }])
+  
   const speech = new Speech()
     speech.init({
       'volume': 1,
       'lang': 'en-GB',
+      'voice':'Fiona',
       'rate': 1,
       'pitch': 1,
       'listeners': {
@@ -27,10 +29,11 @@ const App = (props) => {
         }
       }
     })
-    speech.speak({
-      text: 'Hello, how are you today ?',
-    })
-
+    function speak (){
+      speech.speak({
+        text: 'Hello, how are you today?',
+      })
+    }
   // props.recognition.lang = 'en-US';
   const [listening, setListening] = useState(false);
   //   window.addEventListener('click', () => {
@@ -46,6 +49,7 @@ const App = (props) => {
       <Planet coord={coord} />
       <InfoPlanet day={day} time={time} temp={tempMedium} coord={coord} />
       <InfoMeteo tabData={tabData} />
+      <button onClick={speak}>Speak</button>
     </div>
   );
 }
