@@ -11,7 +11,7 @@ app.get('/', (req,res) =>{
 
 app.get('/api/datas', function(req, res, next) {
     let data = generateDatas();
-    res.json(data);
+    res.send(JSON.stringify(data));
 });
 
 app.listen(port, () => {
