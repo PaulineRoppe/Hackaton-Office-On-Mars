@@ -15,10 +15,12 @@ const App = (props) => {
   const [danger, setDanger] = useState(false);
   const [params, setParams] = useState();
   const [tabData, setData] = useState([{ 'time': '16H00', 'wind': '750 hpa', 'temp': '25°', 'rad': '32 msv' }])
+  
   const speech = new Speech()
     speech.init({
       'volume': 1,
       'lang': 'en-GB',
+      'voice':'Fiona',
       'rate': 1,
       'pitch': 1,
       'listeners': {
@@ -33,13 +35,14 @@ const App = (props) => {
       })
     }
 
+  const { transcript, resetTranscript, browserSupportsSpeechRecognition } = props
   const [listening, setListening] = useState(false);
   return (
     <div className="App">
       <Planet coord={coord} />
       <InfoPlanet day={day} time={time} temp={tempMedium} coord={coord} />
       <InfoMeteo tabData={tabData} />
-      <button onClick={speak()}>speak bitch</button>
+      <button onClick={speak}>Speak</button>
     </div>
   );
 }
