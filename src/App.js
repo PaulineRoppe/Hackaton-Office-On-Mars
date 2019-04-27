@@ -1,10 +1,16 @@
-import React, { useState, setState } from 'react';
+import React, { PropTypes,useState, setState } from 'react';
 import './App.css';
 import { Planet } from './Planet';
 import { InfoPlanet } from './InfoPlanet';
 import { InfoMeteo } from './InfoMeteo';
 import SpeechRecognition from 'react-speech-recognition';
 import Speech from 'speak-tts'
+
+const propTypes = {
+  transcript: PropTypes.string,
+  resetTranscript:PropTypes.func,
+  browserSupportsSpeechRecognition:PropTypes.bool
+}
 
 const App = (props) => {
   const [tempMedium, setTempMedium] = useState('25 °C');
@@ -31,10 +37,11 @@ const App = (props) => {
     })
     function speak (){
       speech.speak({
-        text: 'Hello, how are you today?',
+        text: 'Warning!',
       })
     }
   // props.recognition.lang = 'en-US';
+  const { transcript, resetTranscript, browserSupportsSpeechRecognition} = props
   const [listening, setListening] = useState(false);
   //   window.addEventListener('click', () => {
   //     if(this.listening){
@@ -54,4 +61,5 @@ const App = (props) => {
   );
 }
 
+App.propTypes=propTypes
 export default SpeechRecognition(App);
