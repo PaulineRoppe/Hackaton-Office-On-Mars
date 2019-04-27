@@ -17,24 +17,19 @@ export const App =  (props) => {
   const [tabData, setData] = useState([{ 'time': '16H00', 'wind': '750 hpa', 'temp': '25°', 'rad': '32 msv' }])
 
 
-
-  fetch('api/datas').then(function(response) {
-    return response.json();
-  }).then(function (json) {
-    console.log(json.longitude);
-    setCoord({'latitude' : json.latitude, 'longitude' : json.longitude})
-  })
-
-
-  // const [ response, loading, error , refetch] = useAxios({
-  //   method: 'GET',
-  //   url:'api/datas'
+  console.log('test')
+  // fetch('api/datas').then(function(response) {
+  //   return response.json();
+  // }).then(function (json) {
+  //   console.log(json.longitude);
+  //   setCoord({'latitude' : json.latitude, 'longitude' : json.longitude})
   // })
-  // 'latitude' : data.latitude, 'longitude' : data.longitude
 
-  
-  
-  
+  useEffect(() => {
+    axios
+      .get('api/datas')
+      .then(result => setData(result.data));
+  }, []);
 
   return (
     <div className="App">
