@@ -27,25 +27,19 @@ const App = (props) => {
         }
       }
     })
-    speech.speak({
-      text: 'Hello, how are you today ?',
-    })
+    function speak(){
+      speech.speak({
+        text: 'Hello, how are you today ?',
+      })
+    }
 
-  // props.recognition.lang = 'en-US';
   const [listening, setListening] = useState(false);
-  //   window.addEventListener('click', () => {
-  //     if(this.listening){
-  //       props.stopListening();
-  //     } else {
-  //       props.startListening();
-  //     }
-  //     this.listening = !this.listening;
-  // })
   return (
     <div className="App">
       <Planet coord={coord} />
       <InfoPlanet day={day} time={time} temp={tempMedium} coord={coord} />
       <InfoMeteo tabData={tabData} />
+      <button onClick={speak()}>speak bitch</button>
     </div>
   );
 }
