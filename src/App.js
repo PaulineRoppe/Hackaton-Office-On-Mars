@@ -3,7 +3,6 @@ import './App.css';
 import { Planet } from './Planet';
 import { InfoPlanet } from './InfoPlanet';
 import { InfoMeteo } from './InfoMeteo';
-import axios from 'axios'
 import Speech from 'speak-tts'
 
 export const App =  (props) => {
