@@ -27,7 +27,6 @@ const App = (props) => {
         }
       }
     })
-    speech.setVoice('Fiona')
     speech.speak({
       text: 'Hello, how are you today ?',
     })
@@ -42,8 +41,6 @@ const App = (props) => {
   //     }
   //     this.listening = !this.listening;
   // })
-
-  setTimeout(window.responsiveVoice.speak("bouh", 'French Female'), 500)
   return (
     <div className="App">
       <Planet coord={coord} />
