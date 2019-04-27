@@ -13,7 +13,9 @@
     "path": "^0.12.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.0"
+    "react-scripts": "3.0.0",
+    "three": "^0.104.0",
+    "three-orbitcontrols": "^2.102.1"
   },
   "eslintConfig": {
     "extends": "react-app"

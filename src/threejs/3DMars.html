@@ -28,8 +28,6 @@
 		<script src="./Projector.js"></script>
 		<script src="./SoftwareRenderer.js"></script>
 
-		<script src="./stats.min.js"></script>
-
 		<script>
 
 			var container, stats;
@@ -55,16 +53,16 @@
 				// mars
 
 				var loader = new THREE.TextureLoader();
-				loader.load( './mar0kuu2.jpg', function ( texture ) {
+				loader.load( './markuu2.jpg', function ( texture ) {
 
-					var geometry = new THREE.SphereBufferGeometry( 200, 20, 20 );
+					var geometry = new THREE.SphereBufferGeometry( 200, 80, 80 );
 
 					var material = new THREE.MeshLambertMaterial( { map: texture } );
 					
 					var mesh = new THREE.Mesh( geometry, material );
 					/* mesh.geometry.computeVertexNormals();
 					mesh.geometry.mergeVertices(); */
-					scene.add( mesh );
+					scene.add( mesh ); 
 
 				} );
 				
