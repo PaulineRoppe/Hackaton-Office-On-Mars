@@ -5,13 +5,36 @@ import { InfoPlanet } from './InfoPlanet';
 import { InfoMeteo } from './InfoMeteo';
 import axios from 'axios'
 import Speech from 'speak-tts'
-import { ReactMic } from 'react-mic';
+
+
+function formatDate(date) {
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+};
+
+function formatHour(hour) {
+
+  var hours = hour.getHours();
+  var minutes = hour.getMinutes() || "00";
+
+  return hours+ ' H ' + minutes;
+};
 
 export const App =  (props) => {
   const [tempMedium, setTempMedium] = useState();
   const [coord, setCoord] = useState({});
-  const [day, setDay] = useState();
-  const [time, setTime] = useState();
+  const [day, setDay] = useState(formatDate(new Date()));
+  const [time, setTime] = useState(formatHour(new Date()));
   const [atmos, setAtmos] = useState();
   const [danger, setDanger] = useState(false);
   const [params, setParams] = useState();
@@ -36,6 +59,7 @@ export const App =  (props) => {
         setTemps(result.data.temperatures)
         setTempMedium(result.data.temperature)
         setDanger(result.data.alert)
+        setAtmos(result.data.wind)
     });
   }, []);
 
@@ -61,16 +85,9 @@ export const App =  (props) => {
   return (
     <div className="App">
       <Planet coord={coord} />
-      <InfoPlanet day={day} time={time} temp={tempMedium} coord={coord} />
-      <InfoMeteo temps ={temps} tabData={tabData} />
-      <ReactMic
-        record={record}         // defaults -> false.  Set to true to begin recording
-        
-        onStop={onStop}
-        onData={onData}       // callback to execute when chunk of audio data is available
-      />
-      <button onClick={startRecording} type="button">Start</button>
-      <button onClick={stopRecording} type="button">Stop</button>
+      <InfoPlanet day={day} time={time} temp={tempMedium} coord={coord} record={record} startRecording={startRecording} stopRecording={stopRecording} onData={onData} onStop={onStop}  />
+      <InfoMeteo temps ={temps} tabData={tabData} wind={atmos} />
+      
     </div>
   );
 }

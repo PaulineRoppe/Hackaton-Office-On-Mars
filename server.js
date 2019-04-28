@@ -79,14 +79,19 @@ function generateDatas() {
 	latitude = Number(latitude.toFixed(5));
 
 	let atmosphere = {
-		"azote": "10%",
-		"carbon": "50%"
+		"N" : "3%",
+		"CO2" : "96 %",
+		"Ag" :"1,93 %"
 	};
 
 	let alerts = meteo === "sandstorm" || meteo === "freezing";
 	let temps = [];
 	let min = meteo === "sandstorm" ? -30 : meteo === "freezing" ? -125 : 0;
 	let max = meteo === "sandstorm" ? 10 : meteo === "freezing" ? -50 : 20;
+	let minWind = meteo === "sandstorm" ? 100 : meteo === "freezing" ? 60: 70;
+	let maxWind = meteo === "sandstorm" ? 150 : meteo === "freezing" ? 100: 120;
+	
+	let wind = Math.random() * (maxWind - minWind) + minWind;
 
 	if (oldData == null) {
 		let old = -1;
@@ -113,6 +118,7 @@ function generateDatas() {
 		"radiation": rads,
 		"longitude": longitude,
 		"latitude": latitude,
+		"wind": wind,
 		"atmosphere": atmosphere,
 		"temperatures": temps,
 		"temperature": currentTemp,
