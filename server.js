@@ -2,9 +2,9 @@ const express = require("express");
 const app = express();
 const path = require('path');
 const port = process.env.PORT || 8000;
-const record = require('node-record-lpcm16');
-const speech = require('@google-cloud/speech');
-const client = new speech.SpeechClient();
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({extended: false,limit: '50mb'}));
 
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -18,12 +18,32 @@ app.get('/api/datas', function(req, res) {
 });
 
 app.post('/speech', function (req, res) {
-	let speech = require('speech');
+	const speech = require('@google-cloud/speech');
+	const client = new speech.SpeechClient();
 
-	speech.speechToTextGoogle(req.body.record, 'AIzaSyB_e0Q1C3vgQ8OccASTkMlM3vogFXTGfuY', 'fr', function (err, data, body) {
-		console.log(err);
-		console.log(data);
-		console.log(body);
+	const audio = {
+		content: req.body.record,
+	};
+	const config = {
+		encoding: 'LINEAR16',
+		sampleRateHertz: 128000,
+		languageCode: 'fr',
+	};
+
+	const request = {
+		audio: audio,
+		config: config,
+	};
+
+	client
+	.recognize(request)
+	.then(data => {
+		const response = data[0];
+		const transcription = response.results.map(result => result.alternatives[0].transcript).join('\n');
+		console.log(`Transcription: ${transcription}`);
+	})
+	.catch(err => {
+		console.error('ERROR:', err);
 	});
 });
 
@@ -54,14 +74,19 @@ function generateDatas() {
 	let latitude = oldData == null ? randomInterval(-90, 90) : oldData.latitude;
 
 	let atmosphere = {
-		"azote": "10%",
-		"carbon": "50%"
+		"N" : "3%",
+		"CO2" : "96 %",
+		"Ag" :"1,93 %"
 	};
 
 	let alerts = meteo === "sandstorm" || meteo === "freezing";
 	let temps = [];
 	let min = meteo === "sandstorm" ? -30 : meteo === "freezing" ? -125 : 0;
 	let max = meteo === "sandstorm" ? 10 : meteo === "freezing" ? -50 : 20;
+	let minWind = meteo === "sandstorm" ? 100 : meteo === "freezing" ? 60: 70;
+	let maxWind = meteo === "sandstorm" ? 150 : meteo === "freezing" ? 100: 120;
+	
+	let wind = Math.random() * (maxWind - minWind) + minWind;
 
 	if (oldData == null) {
 		let old = -1;
@@ -86,6 +111,7 @@ function generateDatas() {
 		"radiation": rads,
 		"longitude": longitude,
 		"latitude": latitude,
+		"wind": wind,
 		"atmosphere": atmosphere,
 		"temperatures": temps,
 		"temperature": currentTemp,

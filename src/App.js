@@ -7,11 +7,34 @@ import axios from 'axios'
 import Speech from 'speak-tts'
 import { ReactMic } from 'react-mic';
 
+function formatDate(date) {
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+};
+
+function formatHour(hour) {
+
+  var hours = hour.getHours();
+  var minutes = hour.getMinutes() || "00";
+
+  return hours+ ' H ' + minutes;
+};
+
 export const App =  (props) => {
   const [tempMedium, setTempMedium] = useState();
   const [coord, setCoord] = useState({});
-  const [day, setDay] = useState();
-  const [time, setTime] = useState();
+  const [day, setDay] = useState(formatDate(new Date()));
+  const [time, setTime] = useState(formatHour(new Date()));
   const [atmos, setAtmos] = useState();
   const [danger, setDanger] = useState(false);
   const [params, setParams] = useState();
@@ -37,6 +60,7 @@ export const App =  (props) => {
         setTemps(result.data.temperatures)
         setTempMedium(result.data.temperature)
         setDanger(result.data.alert)
+        setAtmos(result.data.wind)
     });
   }, []);
 
@@ -57,7 +81,7 @@ export const App =  (props) => {
     axios({
       url:'/speech',
       method:'post',
-      data: recordedBlob.blobURL
+      data: {record: recordedBlob.blob}
     })
   }
 
@@ -65,7 +89,7 @@ export const App =  (props) => {
     <div className="App">
       <Planet coord={coord} />
       <InfoPlanet day={day} time={time} temp={tempMedium} coord={coord} />
-      <InfoMeteo temps ={temps} tabData={tabData} />
+      <InfoMeteo temps ={temps} tabData={tabData} wind={atmos} />
       <ReactMic
         record={record}         // defaults -> false.  Set to true to begin recording
         
