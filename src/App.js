@@ -1,9 +1,10 @@
 import React, {useState, setState} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {Planet} from './Planet';
 import {InfoPlanet} from './InfoPlanet';
 import {InfoMeteo} from './InfoMeteo';
+
+import fusee from './fusee.png';
 
 const App = () => {
   const [tempMedium , setTempMedium] = useState('25 °C');
@@ -16,12 +17,16 @@ const App = () => {
   const [tabData, setData] = useState([{'time' : '16H00', 'wind' : '750 hpa', 'temp' : '25°', 'rad' : '32 msv' }])
 
   return (
-    <div className="App">
-      <Planet coord={coord} />
-      <InfoPlanet day={day} time={time} temp={tempMedium} coord={coord} />
-      <InfoMeteo tabData={tabData} />
-
-    </div>
+    <React.Fragment>
+      <div className="fusee" >
+        <img src={fusee} alt="fusée"/>
+      </div>
+        <div className="App">
+          <Planet coord={coord} />
+          <InfoPlanet day={day} time={time} temp={tempMedium} coord={coord} />
+          <InfoMeteo tabData={tabData} />
+        </div>
+    </React.Fragment>
   );
 }
 
