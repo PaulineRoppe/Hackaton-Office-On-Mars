@@ -19,7 +19,9 @@ app.get('/api/datas', function(req, res) {
 
 app.post('/speech', function (req, res) {
 	const speech = require('@google-cloud/speech');
-	const client = new speech.SpeechClient();
+	const client = new speech.SpeechClient({
+		projectId: ''
+   	});
 
 	const audio = {
 		content: req.body.record,
@@ -70,8 +72,11 @@ function generateDatas() {
 	let meteo = meteos[i];
 
 	let rads = oldData == null ? randomInterval(1, 50) : randomInterval(oldData.radiation - 2, oldData.radiation + 2);
+	rads = Number(rads.toFixed(2));
 	let longitude = oldData == null ? randomInterval(-180, 180) : oldData.longitude;
+	longitude = Number(longitude.toFixed(5));
 	let latitude = oldData == null ? randomInterval(-90, 90) : oldData.latitude;
+	latitude = Number(latitude.toFixed(5));
 
 	let atmosphere = {
 		"azote": "10%",
@@ -88,6 +93,7 @@ function generateDatas() {
 
 		for (let j = 0; j <= 23; j++) {
 			let ran = randomInterval(old == -1 ? min : old + randomInterval(-2, 0), old == -1 ? max : old + randomInterval(0, 2));
+			ran = Number(ran.toFixed(2));
 			temps.push(ran);
 			old = ran;
 		}
@@ -100,6 +106,7 @@ function generateDatas() {
 
 	let temp1 = temps[actualHour], temp2 = temps[actualHour + 1];
 	let currentTemp = require('lerp')(temp1, temp2, actualMin / 60);
+	currentTemp = Number(currentTemp.toFixed(2));
 
 	let datas = {
 		"meteo": meteo,
