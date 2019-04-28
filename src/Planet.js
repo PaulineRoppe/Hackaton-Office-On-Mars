@@ -164,23 +164,12 @@ export class Planet extends Component {
   render() {
     return (
       <>
-<<<<<<< HEAD
       <div 
         ref={(container) => {this.container = container}}
         style={{height: '55vh', width:'40vw', overflow: 'hidden'}}
       >
       </div>
       {/* <button onClick={()=> this.geoLocate(5,2)}  content={[<p>geoLocate</p>]}/> */}
-=======
-        <div
-          ref={container => {
-            this.container = container;
-          }}
-          style={{ overflow: "hidden" }}
-          
-        />
-        
->>>>>>> 9c4da22de2c76fb56c191988617235fbfe90d583
       </>
     );
   }
