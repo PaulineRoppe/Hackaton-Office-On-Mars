@@ -5,7 +5,7 @@ import { InfoPlanet } from './InfoPlanet';
 import { InfoMeteo } from './InfoMeteo';
 import axios from 'axios'
 import Speech from 'speak-tts'
-import { ReactMic } from 'react-mic';
+
 
 function formatDate(date) {
   var monthNames = [
@@ -88,16 +88,9 @@ export const App =  (props) => {
   return (
     <div className="App">
       <Planet coord={coord} />
-      <InfoPlanet day={day} time={time} temp={tempMedium} coord={coord} />
+      <InfoPlanet day={day} time={time} temp={tempMedium} coord={coord} record={record} startRecording={startRecording} stopRecording={stopRecording} onData={onData} onStop={onStop}  />
       <InfoMeteo temps ={temps} tabData={tabData} wind={atmos} />
-      <ReactMic
-        record={record}         // defaults -> false.  Set to true to begin recording
-        
-        onStop={onStop}
-        onData={onData}       // callback to execute when chunk of audio data is available
-      />
-      <button onClick={startRecording} type="button">Start</button>
-      <button onClick={stopRecording} type="button">Stop</button>
+      
     </div>
   );
 }
