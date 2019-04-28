@@ -12,12 +12,20 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname + 'build/index.html'));
 });
 
-app.get('/api/datas', function(req, res, next) {
+app.get('/api/datas', function(req, res) {
     let data = generateDatas();
     res.send(JSON.stringify(data));
 });
 
-//app.post('')
+app.post('/speech', function (req, res) {
+	let speech = require('speech');
+
+	speech.speechToTextGoogle(req.body.record, 'AIzaSyB_e0Q1C3vgQ8OccASTkMlM3vogFXTGfuY', 'fr', function (err, data, body) {
+		console.log(err);
+		console.log(data);
+		console.log(body);
+	});
+});
 
 app.listen(port, () => {
 	console.log("Server running on port " + port);
