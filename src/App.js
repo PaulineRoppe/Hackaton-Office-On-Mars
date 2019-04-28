@@ -30,7 +30,7 @@ export const App =  (props) => {
     axios
       .get('api/datas')
       .then(result => {  
-        console.log(result)
+        
         setTempMedium(result.data.temp)
         setCoord({'longitude' : result.data.longitude , 'latitude' : result.data.latitude})
         setData({ 'atmosphere' : result.data.atmosphere, 'rad' : result.data.radiation})
