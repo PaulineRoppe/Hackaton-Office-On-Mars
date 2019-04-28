@@ -1,5 +1,4 @@
 import React, { PropTypes,useState, setState, useEffect } from 'react';
-import './App.css';
 import { Planet } from './Planet';
 import { InfoPlanet } from './InfoPlanet';
 import { InfoMeteo } from './InfoMeteo';
@@ -56,7 +55,6 @@ export const App =  (props) => {
     axios
       .get('api/datas')
       .then(result => {  
-        
         setTempMedium(result.data.temp)
         setCoord({'longitude' : result.data.longitude , 'latitude' : result.data.latitude})
         setData({ 'atmosphere' : result.data.atmosphere, 'rad' : result.data.radiation})
@@ -76,7 +74,6 @@ export const App =  (props) => {
   }
  
   function onData(recordedBlob) {
-    console.log('chunk of real-time data is: ', recordedBlob);
   }
  
   function onStop(recordedBlob) {
@@ -100,6 +97,16 @@ export const App =  (props) => {
         break
     }
   }
+
+  function arrayBufferToBase64(buffer) {
+    let binary = '';
+    const bytes = new Uint8Array( buffer );
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
+}
 
   return (
     <div className="App">
