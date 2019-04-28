@@ -17,6 +17,8 @@ app.get('/api/datas', function(req, res, next) {
     res.send(JSON.stringify(data));
 });
 
+//app.post('')
+
 app.listen(port, () => {
 	console.log("Server running on port " + port);
 });
@@ -54,15 +56,13 @@ function generateDatas() {
 	let max = meteo === "sandstorm" ? 10 : meteo === "freezing" ? -50 : 20;
 
 	if (oldData == null) {
-        let old = -1;
-
 		for (let j = 0; j <= 23; j++) {
-            let ran = randomInterval(old == -1 ? min : old + randomInterval(-2, 0), old == -1 ? max : old + randomInterval(0, 2));
-            temps.push(ran);
-            old = ran;
+			let old = j == 0 ? -1 : temps[j];
+
+			temps.push(randomInterval(old == -1 ? min : old + randomInterval(-2, 0), old == -1 ? max : old + randomInterval(0, 2)));
 		}
 	} else {
-		temps = oldData.temperatures;
+		temps = oldData.temperature;
 	}
 
 	let actualHour = new Date().getHours();
