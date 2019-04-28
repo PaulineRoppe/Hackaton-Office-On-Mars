@@ -12,6 +12,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.ofy-s{
+.ofx-s{
   overflow-x: scroll
+}
+
+.w-100{
+  width:100%
+}
+.w-250px{
+  width:250px;
+}
+
+.row{
+  display: flex;
+  flex-direction:row;
 }

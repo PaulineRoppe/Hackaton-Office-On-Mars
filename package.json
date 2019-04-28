@@ -10,6 +10,7 @@
     "node-record-lpcm16": "^0.3.1",
     "path": "^0.12.7",
     "react": "^16.8.6",
+    "react-audio-recorder": "^2.2.0",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.0",
     "react-speech-recognition": "^2.0.1",
@@ -22,7 +23,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-
   },
   "eslintConfig": {
     "extends": "react-app"
