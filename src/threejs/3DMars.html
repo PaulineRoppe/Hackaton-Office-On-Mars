@@ -1,155 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Mars</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style>
-			body {
-				color: #808080;
-				font-family:Monospace;
-				font-size:13px;
-				text-align:center;
 
-				background-color: #ffffff;
-				margin: 0px;
-				overflow: hidden;
-			}
+<head>
+	<title>Mars</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style>
+		body {
+			color: #808080;
+			font-family: Monospace;
+			font-size: 13px;
+			text-align: center;
 
-			</style>
-	</head>
-	<body>
+			background-color: #ffffff;
+			margin: 0px;
+			overflow: hidden;
+		}
+	</style>
+</head>
 
-		<div id="container"><button type="button" id="Geolocate">geoLocate</button></div>
+<body>
+
+	<div id="container"><button type="button" id="Geolocate">geoLocate</button></div>
+
+
+	<script src="./three.js"></script>
+
+	<script src="./Projector.js"></script>
+	<script src="./SoftwareRenderer.js"></script>
+
+	<script>
+
+		var container, stats;
+		var camera, scene, renderer;
+		var mouseX = 0, mouseY = 0;
+
+		var windowHalfX = window.innerWidth / 2;
+		var windowHalfY = window.innerHeight / 2;
+
+		init();
+		animate();
+
+		function init() {
+
+			container = document.getElementById('container');
+
+			camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 2000);
+			camera.position.z = 500;
+
+			scene = new THREE.Scene();
+
+
+			// mars
+
+			var loader = new THREE.TextureLoader();
+			var texture = loader.load('./markuu2.jpg');
+			var geometry = new THREE.SphereBufferGeometry(200, 80, 80);
+
+				var material = new THREE.MeshLambertMaterial({ map: texture });
+
+				var mesh = new THREE.Mesh(geometry, material);
+				/* mesh.geometry.computeVertexNormals();
+				mesh.geometry.mergeVertices(); */
+				scene.add(mesh);
+
+			/* var circle = new THREE.CircleGeometry(5, 30);
+			var textornado = new THREE.MeshBasicMaterial({ color: 0xfffff })
+			console.log(circle);
+			var mesh2 = new THREE.Mesh(circle, textornado); */
+
+			// Pivot point
+			pivotPoint = new THREE.Object3D();
+			mesh.add(pivotPoint);
+			// Sphere Geometry 2
+			sphereGeometry2 = new THREE.SphereBufferGeometry(15, 30, 30, 0,Math.PI );
+
+			// Sphere Material 2
+			let sphereMaterial2= new THREE.MeshPhongMaterial({
+        map: new THREE.TextureLoader().load('./tenor.gif'),
+      });
+			sphereMesh2 = new THREE.Mesh(sphereGeometry2, sphereMaterial2);
+			sphereMesh2.position.set(0, 0, 200);
+			pivotPoint.add(sphereMesh2);
+
+
+			// shadow
+
+			var canvas = document.createElement('canvas');
+			canvas.width = 128;
+			canvas.height = 128;
+
+			var context = canvas.getContext('2d');
+			var gradient = context.createRadialGradient(
+				canvas.width / 2,
+				canvas.height / 2,
+				0,
+				canvas.width / 2,
+				canvas.height / 2,
+				canvas.width / 2
+			);
+			gradient.addColorStop(0.1, 'rgba(210,210,210,1)');
+			gradient.addColorStop(1, 'rgba(255,255,255,1)');
+
+			context.fillStyle = gradient;
+			context.fillRect(0, 0, canvas.width, canvas.height);
+
+			var texture = new THREE.CanvasTexture(canvas);
+
+
+
+			renderer = new THREE.SoftwareRenderer();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+
+			container.appendChild(renderer.domElement);
+			window.addEventListener('resize', onWindowResize, false);
+
+		}
+
 		
 
-		<script src="./three.js"></script>
+		function onWindowResize() {
 
-		<script src="./Projector.js"></script>
-		<script src="./SoftwareRenderer.js"></script>
+			windowHalfX = window.innerWidth / 2;
+			windowHalfY = window.innerHeight / 2;
 
-		<script>
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
 
-			var container, stats;
-			var camera, scene, renderer;
-			var mouseX = 0, mouseY = 0;
+			renderer.setSize(window.innerWidth, window.innerHeight);
 
-			var windowHalfX = window.innerWidth / 2;
-			var windowHalfY = window.innerHeight / 2;
+		}
 
-			init();
-			animate();
+		function geoLocate(longitude, lattitude) {
 
-			function init() {
+			scene.rotation.y = longitude * Math.PI / 180;
+			scene.rotation.x = lattitude * Math.PI / 180;
 
-				container = document.getElementById( 'container' );
-
-				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 2000 );
-				camera.position.z = 500;
-
-				scene = new THREE.Scene();
+		}
 
 
-				// mars
+		function animate() {
 
-				var loader = new THREE.TextureLoader();
-				loader.load( './markuu2.jpg', function ( texture ) {
+			requestAnimationFrame(animate);
+			render();
 
-					var geometry = new THREE.SphereBufferGeometry( 200, 80, 80 );
+		}
 
-					var material = new THREE.MeshLambertMaterial( { map: texture } );
-					
-					var mesh = new THREE.Mesh( geometry, material );
-					/* mesh.geometry.computeVertexNormals();
-					mesh.geometry.mergeVertices(); */
-					scene.add( mesh ); 
-
-				} );
-				
-
-				// shadow
-
-				var canvas = document.createElement( 'canvas' );
-				canvas.width = 128;
-				canvas.height = 128;
-
-				var context = canvas.getContext( '2d' );
-				var gradient = context.createRadialGradient(
-					canvas.width / 2,
-					canvas.height / 2,
-					0,
-					canvas.width / 2,
-					canvas.height / 2,
-					canvas.width / 2
-				);
-				gradient.addColorStop( 0.1, 'rgba(210,210,210,1)' );
-				gradient.addColorStop( 1, 'rgba(255,255,255,1)' );
-
-				context.fillStyle = gradient;
-				context.fillRect( 0, 0, canvas.width, canvas.height );
-
-				var texture = new THREE.CanvasTexture( canvas );
+		function render() {
 
 
+			camera.lookAt(scene.position);
 
-				renderer = new THREE.SoftwareRenderer();
-				renderer.setSize( window.innerWidth, window.innerHeight );
+			//scene.rotation.x += 0.0002;
+			pivotPoint.rotation.y += 0.001;
+			sphereMesh2.rotation.z -= 0.01;
+			renderer.render(scene, camera);
 
-				container.appendChild( renderer.domElement );
+		}
 
-				
+		document
+			.getElementById("Geolocate")
+			.addEventListener("click", () => geoLocate(15, 15));
+	</script>
 
-				
+</body>
 
-				//
-
-				window.addEventListener( 'resize', onWindowResize, false );
-
-			}
-
-			function onWindowResize() {
-
-				windowHalfX = window.innerWidth / 2;
-				windowHalfY = window.innerHeight / 2;
-
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-
-			}
-
-			function geoLocate (longitude,lattitude) {
-
-				scene.rotation.y = longitude*Math.PI/180;
-				scene.rotation.x = lattitude*Math.PI/180;
-				
-			}
-
-
-			function animate() {
-
-				requestAnimationFrame( animate );
-
-				render();
-				
-			}
-
-			function render() {
-
-				
-				camera.lookAt( scene.position );
-
-				//scene.rotation.x += 0.0002;
-
-				renderer.render( scene, camera );
-
-			}
-
-  document
-    .getElementById("Geolocate")
-    .addEventListener("click", () => geoLocate(15,-90));
-		</script>
-
-	</body>
 </html>

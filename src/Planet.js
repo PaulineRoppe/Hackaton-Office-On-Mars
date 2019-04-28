@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import * as THREE from 'three';
 //import OrbitControls from 'three-orbitcontrols';
-import mars from './mars.jpg'
+import mars from './mars.jpg';
+
 
 export class Planet extends Component{
   constructor(props){
@@ -38,7 +39,7 @@ export class Planet extends Component{
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     let scene = new THREE.Scene();
-    scene.background = new THREE.Color('black');
+    scene.background = new THREE.Color('#151618');
 
     let camera = new THREE.PerspectiveCamera(60, this.width/this.height, 0.25, 1000);
     scene.add(camera);
@@ -55,6 +56,7 @@ export class Planet extends Component{
     this.scene = scene;
     this.camera = camera;
     this.object = mesh;
+   
 
     let spotLight = new THREE.SpotLight(0xffffff, 0.25)
     spotLight.position.set(45, 50, 15);
@@ -85,22 +87,6 @@ export class Planet extends Component{
     this.camera.far = cameraToFarEdge * 3;
     this.camera.lookAt(center);
     this.camera.updateProjectionMatrix();
-
-   /*  let controls = new OrbitControls( this.camera, this.renderer.domElement );
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.25;
-    controls.enableZoom = true;
-    controls.zoomSpeed = 0.1;
-    controls.enableKeys = false;
-    controls.screenSpacePanning = false;
-    controls.enableRotate = true;
-    controls.autoRotate = true;
-    controls.dampingFactor = 1;
-    controls.autoRotateSpeed = 1.2;
-    controls.enablePan = false;
-    controls.target.set(center.x, center.y, center.z);
-    controls.update(); 
-    this.controls = controls; */
     this.renderer.setSize(this.width, this.height);
     this.container.appendChild(this.renderer.domElement);
     this.start();
@@ -113,6 +99,7 @@ export class Planet extends Component{
   }
 
   renderScene(){
+    
     this.renderer.render(this.scene, this.camera)
   }
 
@@ -148,24 +135,24 @@ export class Planet extends Component{
 
   geoLocate(longitude,lattitude){
     
-      this.object.rotation.y = longitude*Math.PI/180;
-        this.object.rotation.x = lattitude*Math.PI/180;
+      //this.object.rotation.y = longitude*Math.PI/180;
+        //this.object.rotation.x = lattitude*Math.PI/180;
+        
         this.renderScene();
         console.log("coucou");
   }
 
 
   render(){
-    const width = '60vh';
-    const height = '60vh';
+  
     return(
       <>
       <div 
         ref={(container) => {this.container = container}}
-        style={{width: width, height: height, overflow: 'hidden'}}
+        style={{height: '55vh', overflow: 'hidden'}}
       >
       </div>
-      <button onClick={()=> this.geoLocate(5,2)}  content={[<p>geoLocate</p>]}/>
+      {/* <button onClick={()=> this.geoLocate(5,2)}  content={[<p>geoLocate</p>]}/> */}
       </>
     )
   }
