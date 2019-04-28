@@ -30,6 +30,9 @@ function formatHour(hour) {
   return hours+ ' H ' + minutes;
 };
 
+const speech = new Speech()
+speech.init()
+
 export const App =  (props) => {
   const [tempMedium, setTempMedium] = useState();
   const [coord, setCoord] = useState({});
@@ -78,11 +81,24 @@ export const App =  (props) => {
  
   function onStop(recordedBlob) {
     console.log('recordedBlob is: ', recordedBlob);
-    axios({
-      url:'/speech',
-      method:'post',
-      data: {record: recordedBlob.blob}
-    })
+    // axios({
+    //   url:'/speech',
+    //   method:'post',
+    //   data: {record: recordedBlob.blob}
+    // })
+    let response = "meteo"
+    switch (true) {
+      case /\bmeteo\b/i.test(response) : 
+        speech.speak({
+          text: "Aujourd'hui le thermomètre affichera -29 degré celsius" ,
+        })
+        break
+      default : 
+        speech.speak({
+          text: 'Hello, how are you today ?',
+        })
+        break
+    }
   }
 
   return (
