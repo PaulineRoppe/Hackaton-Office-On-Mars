@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import * as THREE from 'three';
 //import OrbitControls from 'three-orbitcontrols';
 import mars from './mars.jpg';
-import tornade from './tornado.jpg';
-import tornad from './threejs/tenor.gif';
+
 
 export class Planet extends Component{
   constructor(props){
@@ -40,7 +39,7 @@ export class Planet extends Component{
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     let scene = new THREE.Scene();
-    scene.background = new THREE.Color('black');
+    scene.background = new THREE.Color('#151618');
 
     let camera = new THREE.PerspectiveCamera(60, this.width/this.height, 0.25, 1000);
     scene.add(camera);
@@ -52,19 +51,6 @@ export class Planet extends Component{
     }); 
     let mesh = new THREE.Mesh(sphere, material);
     scene.add(mesh); 
-
-    /*  let pivotPoint = new THREE.Object3D();
-			mesh.add(pivotPoint);
-			// Sphere Geometry 2
-			let sphereGeometry2 = new THREE.SphereBufferGeometry(5, 30, 30, 0,Math.PI );
-
-			// Sphere Material 2
-			let sphereMaterial2= new THREE.MeshPhongMaterial({
-        map: new THREE.TextureLoader().load(tornad),
-      });
-			let sphereMesh2 = new THREE.Mesh(sphereGeometry2, sphereMaterial2);
-			sphereMesh2.position.set(0, 0, 50);
-			pivotPoint.add(sphereMesh2); */
   
     this.renderer = renderer;
     this.scene = scene;
@@ -101,8 +87,6 @@ export class Planet extends Component{
     this.camera.far = cameraToFarEdge * 3;
     this.camera.lookAt(center);
     this.camera.updateProjectionMatrix();
-
-  
     this.renderer.setSize(this.width, this.height);
     this.container.appendChild(this.renderer.domElement);
     this.start();
@@ -160,16 +144,15 @@ export class Planet extends Component{
 
 
   render(){
-    const width = '60vh';
-    const height = '60vh';
+  
     return(
       <>
       <div 
         ref={(container) => {this.container = container}}
-        style={{width: width, height: height, overflow: 'hidden'}}
+        style={{height: '55vh', overflow: 'hidden'}}
       >
       </div>
-      <button onClick={()=> this.geoLocate(5,2)}  content={[<p>geoLocate</p>]}/>
+      {/* <button onClick={()=> this.geoLocate(5,2)}  content={[<p>geoLocate</p>]}/> */}
       </>
     )
   }

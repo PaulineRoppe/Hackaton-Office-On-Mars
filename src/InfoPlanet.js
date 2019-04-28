@@ -3,7 +3,7 @@ import React from 'react';
 export const InfoPlanet = (props) => {
   return (
     <div>
-      {props.day} <br/>
+     <div className="date">{props.day}</div>  <br/>
       {props.time}
       <hr/>
       Medium temperature : {props.temp}<br/>
