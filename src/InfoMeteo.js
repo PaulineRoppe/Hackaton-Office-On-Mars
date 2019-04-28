@@ -1,19 +1,23 @@
 import React from 'react';
 
 export const InfoMeteo = (props) => {
-  const {tabData, temps}=props
+  const {tabData, temps, wind}=props
   console.log(temps)
+  let hour = 0
   return (
     <div className="ofx-s w-100 row">
-      {temps.map(temp=>(
+      {temps.map((temp)=>
+        hour++ &&
+        (
         <div>
-          Temperature : {temp} °C<br/> 
-          Wind : {tabData.wind} <br/>
-          Radiation : {tabData.rad}
+          Temperature : {Math.floor(temp)} °C<br/> 
+          Wind : {Math.floor(wind)} <br/>
+          Radiation : {Math.floor(tabData.rad)}
           <hr/>
-          
+          {temps.indexOf(temp)} h 00
         </div>
-      ))}
+      ) 
+      )}
     </div>
   )
 }
