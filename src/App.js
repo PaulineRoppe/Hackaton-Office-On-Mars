@@ -30,6 +30,7 @@ export const App =  (props) => {
     axios
       .get('api/datas')
       .then(result => {  
+        
         setTempMedium(result.data.temp)
         setCoord({'longitude' : result.data.longitude , 'latitude' : result.data.latitude})
         setData({ 'atmosphere' : result.data.atmosphere, 'rad' : result.data.radiation})
@@ -39,11 +40,11 @@ export const App =  (props) => {
     });
   }, []);
 
-  const startRecording = () => {
+  function startRecording () {
     setRecord(true)
   }
  
-  const stopRecording = () => {
+  function stopRecording () {
     setRecord(false)
   }
  
@@ -53,6 +54,11 @@ export const App =  (props) => {
  
   function onStop(recordedBlob) {
     console.log('recordedBlob is: ', recordedBlob);
+    axios({
+      url:'/speech',
+      method:'post',
+      data: recordedBlob.blobURL
+    })
   }
 
   return (
@@ -66,8 +72,8 @@ export const App =  (props) => {
         onStop={onStop}
         onData={onData}       // callback to execute when chunk of audio data is available
       />
-      <button onTouchTap={startRecording} type="button">Start</button>
-      <button onTouchTap={stopRecording} type="button">Stop</button>
+      <button onClick={startRecording} type="button">Start</button>
+      <button onClick={stopRecording} type="button">Stop</button>
     </div>
   );
 }

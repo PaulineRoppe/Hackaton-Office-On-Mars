@@ -64,13 +64,15 @@ function generateDatas() {
 	let max = meteo === "sandstorm" ? 10 : meteo === "freezing" ? -50 : 20;
 
 	if (oldData == null) {
-		for (let j = 0; j <= 23; j++) {
-			let old = j == 0 ? -1 : temps[j];
+		let old = -1;
 
-			temps.push(randomInterval(old == -1 ? min : old + randomInterval(-2, 0), old == -1 ? max : old + randomInterval(0, 2)));
+		for (let j = 0; j <= 23; j++) {
+			let ran = randomInterval(old == -1 ? min : old + randomInterval(-2, 0), old == -1 ? max : old + randomInterval(0, 2));
+			temps.push(ran);
+			old = ran;
 		}
 	} else {
-		temps = oldData.temperature;
+		temps = oldData.temperatures;
 	}
 
 	let actualHour = new Date().getHours();
