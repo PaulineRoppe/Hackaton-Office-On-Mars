@@ -39,11 +39,11 @@ export const App =  (props) => {
     });
   }, []);
 
-  const startRecording = () => {
+  function startRecording () {
     setRecord(true)
   }
  
-  const stopRecording = () => {
+  function stopRecording () {
     setRecord(false)
   }
  
@@ -66,8 +66,8 @@ export const App =  (props) => {
         onStop={onStop}
         onData={onData}       // callback to execute when chunk of audio data is available
       />
-      <button onTouchTap={startRecording} type="button">Start</button>
-      <button onTouchTap={stopRecording} type="button">Stop</button>
+      <button onClick={startRecording} type="button">Start</button>
+      <button onClick={stopRecording} type="button">Stop</button>
     </div>
   );
 }
