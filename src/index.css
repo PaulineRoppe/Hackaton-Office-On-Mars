@@ -20,6 +20,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+<<<<<<< HEAD
 
 .App{
   margin: 25px ;
@@ -40,3 +41,8 @@ code {
 /* e2381e red */
 
 /* 151618 fond */
+=======
+.ofy-s{
+  overflow-x: scroll
+}
+>>>>>>> 61b8b218f5339018ce63857b741aca3a6b01460c

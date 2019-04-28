@@ -7,7 +7,7 @@ export const InfoPlanet = (props) => {
       {props.time}
       <hr/>
       Medium temperature : {props.temp}<br/>
-      {props.coord[0]} - {props.coord[1]}
+      latitude : {props.coord.latitude} - longitude : {props.coord.longitude}
     </div>
   )
 }
