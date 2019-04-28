@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import * as THREE from 'three';
 //import OrbitControls from 'three-orbitcontrols';
-import mars from './mars.jpg'
+import mars from './mars.jpg';
+import tornade from './tornado.jpg';
+import tornad from './threejs/tenor.gif';
 
 export class Planet extends Component{
   constructor(props){
@@ -50,11 +52,25 @@ export class Planet extends Component{
     }); 
     let mesh = new THREE.Mesh(sphere, material);
     scene.add(mesh); 
+
+    /*  let pivotPoint = new THREE.Object3D();
+			mesh.add(pivotPoint);
+			// Sphere Geometry 2
+			let sphereGeometry2 = new THREE.SphereBufferGeometry(5, 30, 30, 0,Math.PI );
+
+			// Sphere Material 2
+			let sphereMaterial2= new THREE.MeshPhongMaterial({
+        map: new THREE.TextureLoader().load(tornad),
+      });
+			let sphereMesh2 = new THREE.Mesh(sphereGeometry2, sphereMaterial2);
+			sphereMesh2.position.set(0, 0, 50);
+			pivotPoint.add(sphereMesh2); */
   
     this.renderer = renderer;
     this.scene = scene;
     this.camera = camera;
     this.object = mesh;
+   
 
     let spotLight = new THREE.SpotLight(0xffffff, 0.25)
     spotLight.position.set(45, 50, 15);
@@ -86,21 +102,7 @@ export class Planet extends Component{
     this.camera.lookAt(center);
     this.camera.updateProjectionMatrix();
 
-   /*  let controls = new OrbitControls( this.camera, this.renderer.domElement );
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.25;
-    controls.enableZoom = true;
-    controls.zoomSpeed = 0.1;
-    controls.enableKeys = false;
-    controls.screenSpacePanning = false;
-    controls.enableRotate = true;
-    controls.autoRotate = true;
-    controls.dampingFactor = 1;
-    controls.autoRotateSpeed = 1.2;
-    controls.enablePan = false;
-    controls.target.set(center.x, center.y, center.z);
-    controls.update(); 
-    this.controls = controls; */
+  
     this.renderer.setSize(this.width, this.height);
     this.container.appendChild(this.renderer.domElement);
     this.start();
@@ -113,6 +115,7 @@ export class Planet extends Component{
   }
 
   renderScene(){
+    
     this.renderer.render(this.scene, this.camera)
   }
 
@@ -148,8 +151,9 @@ export class Planet extends Component{
 
   geoLocate(longitude,lattitude){
     
-      this.object.rotation.y = longitude*Math.PI/180;
-        this.object.rotation.x = lattitude*Math.PI/180;
+      //this.object.rotation.y = longitude*Math.PI/180;
+        //this.object.rotation.x = lattitude*Math.PI/180;
+        
         this.renderScene();
         console.log("coucou");
   }
