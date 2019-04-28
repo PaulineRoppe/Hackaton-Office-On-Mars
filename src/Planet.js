@@ -61,7 +61,7 @@ export class Planet extends Component {
 			let sphereGeometry2 = new THREE.SphereBufferGeometry(15, 30, 30, 0,Math.PI );
 
 			// Sphere Material 2
-			let sphereMaterial2= new THREE.MeshPhongMaterial({ color : 0xffffff});
+			let sphereMaterial2= new THREE.MeshPhongMaterial({color : 0xffffff });
 			let sphereMesh2 = new THREE.Mesh(sphereGeometry2, sphereMaterial2);
 			sphereMesh2.position.set(0, 0, 200);
 			pivotPoint.add(sphereMesh2);

@@ -21,11 +21,15 @@ code {
     monospace;
 }
 .ofx-s{
-  overflow-x: scroll
+  overflow-x: scroll;
+  overflow: hidden;
+}
+.sndrow{
+  grid-row: 2/3;
 }
 
 .w-100{
-  width:90vw
+  width:100vw;
 }
 .w-250px{
   width:250px;
@@ -42,6 +46,7 @@ code {
 .App{
   padding: 25px;
   color: white;
+  margin-top: 15px;
   display: grid;
   grid-template-columns: 55% auto;
   
@@ -77,8 +82,11 @@ margin: 0 3px;
   margin-top: 10px;
   display: flex;
   justify-content: center;
+  color: lightseagreen;
   
 }
+
+
 
 /* bbffee blue */
 

@@ -21,10 +21,10 @@ export const InfoPlanet = (props) => {
         {Math.floor(props.coord.longitude)}
         <div className="buttonfield">
         <button onClick={startRecording} type="button" className="button">
-          Start
+          Speak
         </button>
         <button onClick={stopRecording} type="button" className="button" >
-          Stop
+          Answers
         </button>
         </div>
       </div>
