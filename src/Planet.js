@@ -38,8 +38,7 @@ export class Planet extends Component {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     let scene = new THREE.Scene();
-    scene.background = new THREE.Color("#151618");
-
+   
     let camera = new THREE.PerspectiveCamera(
       60,
       this.width / this.height,
@@ -48,7 +47,7 @@ export class Planet extends Component {
     );
     scene.add(camera);
 
-    let sphere = new THREE.SphereGeometry(50, 300, 300);
+    let sphere = new THREE.SphereGeometry(210, 300, 300);
     let material = new THREE.MeshPhongMaterial({
       map: new THREE.TextureLoader().load(mars)
     });
@@ -62,9 +61,7 @@ export class Planet extends Component {
 			let sphereGeometry2 = new THREE.SphereBufferGeometry(15, 30, 30, 0,Math.PI );
 
 			// Sphere Material 2
-			let sphereMaterial2= new THREE.MeshPhongMaterial({
-        map: new THREE.TextureLoader().load('./tenor.gif'),
-      });
+			let sphereMaterial2= new THREE.MeshPhongMaterial({ color : 0xffffff});
 			let sphereMesh2 = new THREE.Mesh(sphereGeometry2, sphereMaterial2);
 			sphereMesh2.position.set(0, 0, 200);
 			pivotPoint.add(sphereMesh2);

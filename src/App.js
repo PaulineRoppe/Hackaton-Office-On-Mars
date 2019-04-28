@@ -1,5 +1,4 @@
 import React, { PropTypes,useState, setState, useEffect } from 'react';
-import './App.css';
 import { Planet } from './Planet';
 import { InfoPlanet } from './InfoPlanet';
 import { InfoMeteo } from './InfoMeteo';

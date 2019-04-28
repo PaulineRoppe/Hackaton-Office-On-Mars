@@ -13,7 +13,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-background-color: #151618;
+background-color: black;
 }
 
 code {
@@ -34,15 +34,19 @@ code {
 .row{
   display: flex;
   flex-direction:row;
+  padding: 5px;
+  border: 1px solid lightseagreen;
+  border-radius: 5px;
 }
 
 .App{
+  padding: 25px;
   color: white;
   display: grid;
   grid-template-columns: 55% auto;
-  grid-template-rows: 50% 50%;
-  width: 100%;
-  height: 100%;
+  
+  width: 90%;
+  height: 90%;
 }
 
 .dn{
@@ -59,6 +63,22 @@ code {
   margin-right:20px;
 }
 
+.truc{
+  font-size: 2rem;
+  border: 1px solid lightseagreen;
+  border-radius: 5px;
+  padding: 11px;
+}
+.button{
+  height: 35px;
+margin: 0 3px;
+}
+.buttonfield{
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  
+}
 
 /* bbffee blue */
 
