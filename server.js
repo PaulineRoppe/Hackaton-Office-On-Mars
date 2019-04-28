@@ -12,9 +12,19 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname + 'build/index.html'));
 });
 
-app.get('/api/datas', function(req, res, next) {
+app.get('/api/datas', function(req, res) {
     let data = generateDatas();
     res.send(JSON.stringify(data));
+});
+
+app.post('/speech', function (req, res) {
+	let speech = require('speech');
+
+	speech.speechToTextGoogle(req.body.record, 'AIzaSyB_e0Q1C3vgQ8OccASTkMlM3vogFXTGfuY', 'fr', function (err, data, body) {
+		console.log(err);
+		console.log(data);
+		console.log(body);
+	});
 });
 
 app.listen(port, () => {
@@ -54,15 +64,13 @@ function generateDatas() {
 	let max = meteo === "sandstorm" ? 10 : meteo === "freezing" ? -50 : 20;
 
 	if (oldData == null) {
-        let old = -1;
-
 		for (let j = 0; j <= 23; j++) {
-            let ran = randomInterval(old == -1 ? min : old + randomInterval(-2, 0), old == -1 ? max : old + randomInterval(0, 2));
-            temps.push(ran);
-            old = ran;
+			let old = j == 0 ? -1 : temps[j];
+
+			temps.push(randomInterval(old == -1 ? min : old + randomInterval(-2, 0), old == -1 ? max : old + randomInterval(0, 2)));
 		}
 	} else {
-		temps = oldData.temperatures;
+		temps = oldData.temperature;
 	}
 
 	let actualHour = new Date().getHours();
@@ -87,43 +95,3 @@ function generateDatas() {
 
 	return datas;
 }
-
-const encoding = 'LINEAR16';
-const sampleRateHertz = 16000;
-const languageCode = 'en-GB';
-
-const request = {
-	config: {
-		encoding: encoding,
-		sampleRateHertz: sampleRateHertz,
-		languageCode: languageCode,
-	},
-	interimResults: false, // If you want interim results, set this to true
-};
-
-// Create a recognize stream
-const recognizeStream = client
-	.streamingRecognize(request)
-	.on('error', console.error)
-	.on('data', data =>
-		process.stdout.write(
-			data.results[0] && data.results[0].alternatives[0] ?
-			`Transcription: ${data.results[0].alternatives[0].transcript}\n` :
-			`\n\nReached transcription time limit, press Ctrl+C\n`
-		)
-	);
-
-// Start recording and send the microphone input to the Speech API
-record
-	.start({
-		sampleRateHertz: sampleRateHertz,
-		threshold: 0,
-		// Other options, see https://www.npmjs.com/package/node-record-lpcm16#options
-		verbose: false,
-		recordProgram: 'rec', // Try also "arecord" or "sox"
-		silence: '10.0',
-	})
-	.on('error', console.error)
-	.pipe(recognizeStream);
-
-console.log('Listening, press Ctrl+C to stop.');
