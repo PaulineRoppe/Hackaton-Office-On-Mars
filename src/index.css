@@ -20,8 +20,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-<<<<<<< HEAD
-=======
 .ofx-s{
   overflow-x: scroll
 }
@@ -37,7 +35,6 @@ code {
   display: flex;
   flex-direction:row;
 }
->>>>>>> da257decd62e3bd9f29d4e3d31722969b7cbfc0f
 
 .App{
   margin: 25px ;
