@@ -5,6 +5,7 @@ import { InfoPlanet } from './InfoPlanet';
 import { InfoMeteo } from './InfoMeteo';
 import axios from 'axios'
 import Speech from 'speak-tts'
+import { ReactMic } from 'react-mic';
 
 export const App =  (props) => {
   const [tempMedium, setTempMedium] = useState();
@@ -16,9 +17,8 @@ export const App =  (props) => {
   const [params, setParams] = useState();
   const [tabData, setData] = useState()
   const [temps, setTemps] = useState([])
+  const [record, setRecord] = useState(false)
 
-
-  console.log('test')
   // fetch('api/datas').then(function(response) {
   //   return response.json();
   // }).then(function (json) {
@@ -30,7 +30,6 @@ export const App =  (props) => {
     axios
       .get('api/datas')
       .then(result => {  
-        console.log(result.data)
         setTempMedium(result.data.temp)
         setCoord({'longitude' : result.data.longitude , 'latitude' : result.data.latitude})
         setData({ 'atmosphere' : result.data.atmosphere, 'rad' : result.data.radiation})
@@ -40,11 +39,35 @@ export const App =  (props) => {
     });
   }, []);
 
+  const startRecording = () => {
+    setRecord(true)
+  }
+ 
+  const stopRecording = () => {
+    setRecord(false)
+  }
+ 
+  function onData(recordedBlob) {
+    console.log('chunk of real-time data is: ', recordedBlob);
+  }
+ 
+  function onStop(recordedBlob) {
+    console.log('recordedBlob is: ', recordedBlob);
+  }
+
   return (
     <div className="App">
       <Planet coord={coord} />
       <InfoPlanet day={day} time={time} temp={tempMedium} coord={coord} />
       <InfoMeteo temps ={temps} tabData={tabData} />
+      <ReactMic
+        record={record}         // defaults -> false.  Set to true to begin recording
+        
+        onStop={onStop}
+        onData={onData}       // callback to execute when chunk of audio data is available
+      />
+      <button onTouchTap={startRecording} type="button">Start</button>
+      <button onTouchTap={stopRecording} type="button">Stop</button>
     </div>
   );
 }

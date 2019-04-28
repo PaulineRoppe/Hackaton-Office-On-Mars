@@ -20,6 +20,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+<<<<<<< HEAD
+=======
+.ofx-s{
+  overflow-x: scroll
+}
+
+.w-100{
+  width:100%
+}
+.w-250px{
+  width:250px;
+}
+
+.row{
+  display: flex;
+  flex-direction:row;
+}
+>>>>>>> da257decd62e3bd9f29d4e3d31722969b7cbfc0f
 
 .App{
   margin: 25px ;
@@ -38,6 +56,9 @@ code {
 /* e2381e red */
 
 /* 151618 fond */
+<<<<<<< HEAD
 .ofy-s{
   overflow-x: scroll
 }
+=======
+>>>>>>> da257decd62e3bd9f29d4e3d31722969b7cbfc0f
