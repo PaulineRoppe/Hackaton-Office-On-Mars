@@ -39,7 +39,7 @@ export class Planet extends Component{
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     let scene = new THREE.Scene();
-    scene.background = new THREE.Color('#151618');
+    scene.background = new THREE.Color('0x151618');
 
     let camera = new THREE.PerspectiveCamera(60, this.width/this.height, 0.25, 1000);
     scene.add(camera);
@@ -142,6 +142,13 @@ export class Planet extends Component{
         console.log("coucou");
   }
 
+  stopAndGo() { // fonction qui fait "passer le temps" et qui l'arrete une fois a zero
+        
+            this.interval = setInterval(() => { 
+              this.camera.position.set()
+            } , 1000)
+    }
+
 
   render(){
   
@@ -150,6 +157,7 @@ export class Planet extends Component{
       <div 
         ref={(container) => {this.container = container}}
         style={{height: '55vh', overflow: 'hidden'}}
+        onMouseMove={this._onMouseMove.bind(this)}
       >
       </div>
       {/* <button onClick={()=> this.geoLocate(5,2)}  content={[<p>geoLocate</p>]}/> */}
