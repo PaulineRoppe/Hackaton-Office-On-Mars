@@ -5,7 +5,7 @@ export const InfoMeteo = (props) => {
   console.log(temps)
   return (
     <div className="ofx-s w-100 row">
-      {/* {temps.map(temp=>(
+      {temps.map(temp=>(
         <div>
           Temperature : {temp} °C<br/> 
           Wind : {tabData.wind} <br/>
@@ -13,7 +13,7 @@ export const InfoMeteo = (props) => {
           <hr/>
           
         </div>
-      ))} */}
+      ))}
     </div>
   )
 }

@@ -54,6 +54,11 @@ export const App =  (props) => {
  
   function onStop(recordedBlob) {
     console.log('recordedBlob is: ', recordedBlob);
+    axios({
+      url:'/speech',
+      method:'post',
+      data: recordedBlob.blobURL
+    })
   }
 
   return (
