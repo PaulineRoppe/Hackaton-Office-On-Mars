@@ -57,7 +57,7 @@ export const App =  (props) => {
     axios({
       url:'/speech',
       method:'post',
-      data: recordedBlob.blobURL
+      data: {record: recordedBlob.blob}
     })
   }
 
