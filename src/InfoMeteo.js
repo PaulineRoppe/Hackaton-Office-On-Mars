@@ -1,15 +1,17 @@
 import React from 'react';
 
 export const InfoMeteo = (props) => {
+  const {tabData, temps}=props
+  console.log(temps)
   return (
-    <div>
-      {props.tabData.map(data=>(
+    <div className="ofy-s">
+      {temps.map(temp=>(
         <div>
-          Temperature : {data.temp}<br/> 
-          Wind : {data.wind} <br/>
-          Radiation : {data.rad}
+          Temperature : {temp}<br/> 
+          Wind : {tabData.wind} <br/>
+          Radiation : {tabData.rad}
           <hr/>
-          {data.time}
+          
         </div>
       ))}
     </div>
