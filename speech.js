@@ -1,6 +1,6 @@
 
-exports.speechToTextGoogle = function (arrayBuffer, endpoint, key, languageCode, callback) {
-    const url = endpoint + '?key=' + key;
+exports.speechToTextGoogle = function (arrayBuffer, key, languageCode, callback) {
+    const url = 'https://speech.googlapis.com/v1/speech:recognize?key=' + key;
     const audio = arrayBufferToBase64(arrayBuffer);
     const body = {
       config : {
